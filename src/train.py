@@ -1,5 +1,5 @@
 import torch
-from data_utils import get_pet_data
+from utils import get_pet_data
 
 
 # Get the data
