@@ -1,0 +1,25 @@
+# Git and environment files
+.git
+.gitignore
+.env
+
+# Python specific
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+
+# IDE and local folders
+.vscode/
+.idea/
+venv/
+env/
+*.DS_Store
+
+# W&B local logs and artifacts
+wandb/
+
+# Local data not needed for the app
+data/
+tuned_models/
