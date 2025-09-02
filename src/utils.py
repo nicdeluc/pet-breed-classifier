@@ -5,6 +5,7 @@ from torchvision import transforms
 from tqdm.auto import tqdm
 import matplotlib.pyplot as plt
 import wandb
+import yaml
 
 
 def get_pet_data():
@@ -195,17 +196,18 @@ def fine_tune(model, dataloaders, loss_fn, optimizers, epochs_head=5, epochs_ful
     
     return history
 
-def track_experiment(model, dataloaders, loss_fn, optimizers, config):
+def track_experiment(model, dataloaders, loss_fn, optimizers, config, device="cuda"):
     wandb.init(
         entity = 'nicdeluc-learning',
         project = 'pet-breed-classification',
-        config = config
+        config = config,
+        dir = '.'
     )
 
     # Fine-tune the model
-    history = fine_tune(model, dataloaders, loss_fn, optimizers, epochs_head=10, epochs_full=20)
+    history = fine_tune(model, dataloaders, loss_fn, optimizers, epochs_head=10, epochs_full=20, device=device)
 
-    # End experiment experiment tracking
+    # End experiment tracking
     wandb.finish()
     
     return history
@@ -246,3 +248,40 @@ def plot_history(history):
 def save_model(model):
     PATH = f'../tuned_models/fine_tuned_{model}.pth'
     torch.save(model.state_dict(), PATH)
+    
+def prediction_probabilities(image, model, device='cuda'):
+    """
+    """
+    pred_transform = transforms.Compose([
+        transforms.Resize(256),
+        transforms.CenterCrop(224),
+        transforms.ToTensor(),
+        transforms.Normalize(mean=[0.485, 0.456, 0.406], 
+                            std=[0.229, 0.224, 0.225])
+    ])
+    image_tensor = pred_transform(image)
+    batch_tensor = image_tensor.unsqueeze(0)
+    
+    model.eval()
+    with torch.inference_mode():
+        batch_tensor = batch_tensor.to(device)
+        logits = model(batch_tensor)
+        pred_probs = torch.nn.functional.softmax(logits, dim=1)
+        
+    return pred_probs
+
+def load_config(config_path):
+    """
+    Loads the YAML configuration file.
+    """
+    try:
+        with open(config_path, 'r') as f:
+            # Use safe_load for security
+            config = yaml.safe_load(f)
+        return config
+    except FileNotFoundError:
+        print(f"ERROR: Configuration file not found at {config_path}")
+        return None
+    except Exception as e:
+        print(f"ERROR: Failed to load or parse configuration file: {e}")
+        return None
