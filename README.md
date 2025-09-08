@@ -3,7 +3,7 @@
 [![Python](https://img.shields.io/badge/Python-3.11-blue)](https://www.python.org/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.7-orange)](https://pytorch.org/)
 [![wandb](https://img.shields.io/badge/W%26B-Tracked-yellow)](https://wandb.ai/nicdeluc-learning/pet-breed-classification)
-[![Gradio](https://img.shields.io/badge/%F0%9F%A4%97%20Gradio-UI-orange)](https://gradio.app/)
+[![Gradio](https://img.shields.io/badge/Gradio-UI-orange)](https://gradio.app/)
 [![Hugging Face Spaces](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-blue)](https://huggingface.co/spaces/nicdeluc/pet-breed-classifier)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![License](https://img.shields.io/badge/License-MIT-green)](./LICENSE)
@@ -51,11 +51,13 @@ The project is built with a modern stack for machine learning engineering:
 ### High-Level Architecture
 The workflow is designed to separate experimentation from production:
 
-[W&B Sweeps] --> [Training Script (train_final.py)] --> [Final Model (best.pth)]
-|
-v
-[Gradio App (app.py)] + [Final Model] --> [Docker Image] --> [Hugging Face Spaces]
-
+```mermaid
+flowchart LR
+    A[W&B Sweeps] --> B(Training Script);
+    B --> C{{Final Model Artifact}};
+    C --> D[Gradio App + Dockerfile];
+    D --> E((Live Deployment on Hugging Face));
+```
 
 ---
 
@@ -76,8 +78,7 @@ cd pet-breed-classifier
 This will install all the libraries needed for both training and inference.
 ```
 
-Bash
-
+```bash
 # Create and activate the conda environment from the provided file
 conda env create -f environment.yaml
 conda activate pet-breed-clf
@@ -86,9 +87,9 @@ conda activate pet-breed-clf
 wandb login
 4. Run the Hyperparameter Sweep (Optional)
 To replicate the experimentation phase, you can run a W&B sweep.
+```
 
-Bash
-
+```bash
 # 1. Initialize the sweep on the W&B server
 # This will output a SWEEP_ID in the format: your-entity/your-project/sweep-id
 wandb sweep src/sweep.yaml
@@ -97,9 +98,9 @@ wandb sweep src/sweep.yaml
 python src/sweep.py your-entity/your-project/sweep-id
 5. Run the Application with Docker
 The simplest way to run the final web application is with Docker. This uses the pre-trained model located in the assets/ folder.
+```
 
-Bash
-
+```bash
 # 1. Build the Docker image
 docker build -t pet-classifier-app .
 
@@ -107,8 +108,9 @@ docker build -t pet-classifier-app .
 # The -p flag maps the container's port 7860 to your local port 7860
 docker run -p 7860:7860 pet-classifier-app
 You can now access the application by navigating to http://localhost:7860 in your web browser.
+```
 
-📂 Repository Structure
+## 📂 Repository Structure
 The repository is organized to clearly separate concerns:
 
 .
