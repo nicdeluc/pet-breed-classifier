@@ -19,7 +19,7 @@ A complete MLOps project that fine-tunes a ResNet-34 model to classify 37 differ
 **[➡️ Live Demo: Pet Breed Classifier ⬅️](https://huggingface.co/spaces/nicdeluc/pet-breed-classifier)**
 
 ![Pet Breed Classifier Demo GIF](https://huggingface.co/spaces/nicdeluc/pet-breed-classifier/resolve/main/demo.gif)
-*(A short GIF of the app in action.)*
+*Image of the demo*
 
 ---
 
@@ -27,7 +27,7 @@ A complete MLOps project that fine-tunes a ResNet-34 model to classify 37 differ
 
 The goal of this project was to build a reliable image classifier and, more importantly, to implement a professional MLOps workflow around it. The process involved fine-tuning a pre-trained ResNet-34 model on the Oxford-IIIT Pet Dataset, systematically searching for optimal hyperparameters, and finally, packaging the resulting model into a portable and user-friendly web application.
 
-The fine-tuning is performed in 2 stages. First, the last layer (fully-connected) of the ResNet-34 is replaced by one with output dimension of 37, matching the number of classes of our dataset, with a dropaout layer preceding it. Then, this layer is trained on the dataset, leaving the rest frozen. Afterwards, the full model is trained on the dataset.
+The fine-tuning is performed in 2 stages. First, the last layer (fully-connected) of the ResNet-34 is replaced by one with output dimension of 37, matching the number of classes of our dataset, with a dropout layer preceding it. Then, this layer is trained on the dataset, leaving the rest frozen. Afterwards, the full model is trained on the dataset.
 
 ### Key Features
 * **Hyperparameter Tuning:** A Bayesian sweep was conducted using Weights & Biases to find the optimal learning rates, dropout probability, and weight decay.
@@ -51,7 +51,7 @@ The project is built with a modern stack for machine learning engineering:
 ### High-Level Architecture
 The workflow is designed to separate experimentation from deployment:
 
-![Project Architecture Diagram](./assets/architecture.svg)
+![Project Architecture Diagram](./assets/architecture.png)
 
 ---
 
