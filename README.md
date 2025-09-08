@@ -58,7 +58,7 @@ graph LR
         A[Oxford-IIIT Pet Dataset] --> B(Training Script in PyTorch);
         B -- Runs tracked by --> C[W&B Sweeps];
         C -- Finds best params --> B;
-        B --> D{{Final Model Artifact (.pth)}};
+        B --> D{{"Final Model Artifact (.pth)"}};
     end
 
     subgraph "2. Deployment & Inference"
