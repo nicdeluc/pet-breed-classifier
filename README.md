@@ -74,9 +74,10 @@ To set up and run this project on your local machine, follow these steps.
 ```bash
 git clone [https://github.com/nicdeluc/pet-breed-classifier.git](https://github.com/nicdeluc/pet-breed-classifier.git)
 cd pet-breed-classifier
+```
+
 3. Set Up the Development Environment
 This will install all the libraries needed for both training and inference.
-```
 
 ```bash
 # Create and activate the conda environment from the provided file
@@ -85,9 +86,10 @@ conda activate pet-breed-clf
 
 # Log in to your Weights & Biases account
 wandb login
-4. Run the Hyperparameter Sweep (Optional)
-To replicate the experimentation phase, you can run a W&B sweep.
 ```
+
+### 4. Run the Hyperparameter Sweep (Optional)
+To replicate the experimentation phase, you can run a W&B sweep.
 
 ```bash
 # 1. Initialize the sweep on the W&B server
@@ -96,9 +98,10 @@ wandb sweep src/sweep.yaml
 
 # 2. Run the agent with the SWEEP_ID to start experiments
 python src/sweep.py your-entity/your-project/sweep-id
-5. Run the Application with Docker
-The simplest way to run the final web application is with Docker. This uses the pre-trained model located in the assets/ folder.
 ```
+
+### 5. Run the Application with Docker
+The simplest way to run the final web application is with Docker. This uses the pre-trained model located in the assets/ folder.
 
 ```bash
 # 1. Build the Docker image
