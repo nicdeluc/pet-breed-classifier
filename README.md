@@ -51,7 +51,22 @@ The project is built with a modern stack for machine learning engineering:
 ### High-Level Architecture
 The workflow is designed to separate experimentation from deployment:
 
-![Project Architecture Diagram](./assets/architecture.png)
+```mermaid
+graph TD
+    subgraph "1. Experimentation & Training"
+        A[Oxford-IIIT Pet Dataset] --> B(Training Script in PyTorch);
+        B -- Runs tracked by --> C[W&B Sweeps];
+        C -- Finds best params --> B;
+        B --> D{{"Final Model Artifact (.pth)"}};
+    end
+
+    subgraph "2. Deployment & Inference"
+        D -- Tracked with --> F[Git LFS];
+        D --> E[Gradio App + Dockerfile];
+        E -- Builds --> G{Docker Image};
+        G -- Deployed to --> H((Live on Hugging Face Spaces));
+    end
+```
 
 ---
 
