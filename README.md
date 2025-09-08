@@ -27,9 +27,16 @@ A complete MLOps project that fine-tunes a ResNet-34 model to classify 37 differ
 
 The goal of this project was to build a reliable image classifier and, more importantly, to implement a professional MLOps workflow around it. The process involved fine-tuning a pre-trained ResNet-34 model on the Oxford-IIIT Pet Dataset, systematically searching for optimal hyperparameters, and finally, packaging the resulting model into a portable and user-friendly web application.
 
-The fine-tuning is performed in 2 stages. First, the last layer (fully-connected) of the ResNet-34 is replaced by one with output dimension of 37, matching the number of classes of our dataset, with a dropout layer preceding it. Then, this layer is trained on the dataset, leaving the rest frozen. Afterwards, the full model is trained on the dataset.
+### Fine-Tuning Strategy
+
+To maximize performance, I implemented a two-stage transfer learning strategy:
+
+* **1. Feature Extraction:** I first replaced the model's original fully-connected head with a new one tailored for our 37 classes, preceded by a dropout layer. I then froze the convolutional backbone and trained only this new head, allowing it to learn dataset-specific features from the powerful pre-trained layers.
+
+* **2. Full Model Fine-Tuning:** After the new head was trained, I unfroze the entire network and continued training with a very low learning rate. This "gradual unfreezing" allows the pre-trained weights to be fine-tuned to the specifics of the new dataset without losing their valuable learned knowledge.
 
 ### Key Features
+
 * **Hyperparameter Tuning:** A Bayesian sweep was conducted using Weights & Biases to find the optimal learning rates, dropout probability, and weight decay.
 * **Interactive UI:** A simple and intuitive web interface built with Gradio allows users to upload an image and receive the top 3 breed predictions with confidence scores.
 * **Containerized & Reproducible:** The entire application is containerized with Docker, ensuring that it runs consistently in any environment.
