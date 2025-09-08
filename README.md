@@ -31,9 +31,9 @@ The goal of this project was to build a reliable image classifier and, more impo
 
 To maximize performance, I implemented a two-stage transfer learning strategy:
 
-* **1. Feature Extraction:** I first replaced the model's original fully-connected head with a new one tailored for our 37 classes, preceded by a dropout layer. I then froze the convolutional backbone and trained only this new head, allowing it to learn dataset-specific features from the powerful pre-trained layers.
+**1. Feature Extraction:** I first replaced the model's original fully-connected head with a new one tailored for our 37 classes, preceded by a dropout layer. I then froze the convolutional backbone and trained only this new head, allowing it to learn dataset-specific features from the powerful pre-trained layers.
 
-* **2. Full Model Fine-Tuning:** After the new head was trained, I unfroze the entire network and continued training with a very low learning rate. This "gradual unfreezing" allows the pre-trained weights to be fine-tuned to the specifics of the new dataset without losing their valuable learned knowledge.
+**2. Full Model Fine-Tuning:** After the new head was trained, I unfroze the entire network and continued training with a very low learning rate. This "gradual unfreezing" allows the pre-trained weights to be fine-tuned to the specifics of the new dataset without losing their valuable learned knowledge.
 
 ### Key Features
 
