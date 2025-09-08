@@ -52,11 +52,16 @@ The project is built with a modern stack for machine learning engineering:
 The workflow is designed to separate experimentation from production:
 
 ```mermaid
-flowchart LR
-    A[W&B Sweeps] --> B(Training Script);
-    B --> C{{Final Model Artifact}};
-    C --> D[Gradio App + Dockerfile];
-    D --> E((Live Deployment on Hugging Face));
+graph LR
+    subgraph "1. Experimentation & Training"
+        A[W&B Sweeps] --> B(Training Script);
+        B --> C{{Final Model Artifact}};
+    end
+
+    subgraph "2. Deployment & Inference"
+        C --> D[Gradio App + Dockerfile];
+        D --> E((Live Deployment on Hugging Face));
+    end
 ```
 
 ---
@@ -72,11 +77,11 @@ To set up and run this project on your local machine, follow these steps.
 
 ### 2. Clone the Repository
 ```bash
-git clone [https://github.com/nicdeluc/pet-breed-classifier.git](https://github.com/nicdeluc/pet-breed-classifier.git)
+git clone https://github.com/nicdeluc/pet-breed-classifier.git
 cd pet-breed-classifier
 ```
 
-3. Set Up the Development Environment
+### 3. Set Up the Development Environment
 This will install all the libraries needed for both training and inference.
 
 ```bash
@@ -110,12 +115,14 @@ docker build -t pet-classifier-app .
 # 2. Run the Docker container
 # The -p flag maps the container's port 7860 to your local port 7860
 docker run -p 7860:7860 pet-classifier-app
-You can now access the application by navigating to http://localhost:7860 in your web browser.
 ```
+
+You can now access the application by navigating to [http://localhost:7860] in your web browser.
 
 ## 📂 Repository Structure
 The repository is organized to clearly separate concerns:
 
+```text
 .
 ├── assets/                 # Deployment assets (final model, example images)
 ├── notebooks/              # Jupyter notebooks for initial data exploration
@@ -132,12 +139,14 @@ The repository is organized to clearly separate concerns:
 ├── environment.yaml        # Conda environment for development
 ├── requirements_app.txt    # Minimal requirements for the Dockerized app
 └── README.md               # This file
-📈 Possible Improvements
+```
+
+## 📈 Possible Improvements
 Potential next steps could include:
 
 CI/CD Pipeline: Implement GitHub Actions to automatically build and test the Docker image on every push.
 
 Advanced Architectures: Experiment with more modern architectures like Vision Transformers (ViT) to compare performance.
 
-📄 License
+## 📄 License
 This project is licensed under the MIT License. See the LICENSE file for more details.
