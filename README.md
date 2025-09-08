@@ -160,4 +160,4 @@ Potential next steps could include:
 - Advanced Architectures: Experiment with more modern architectures like Vision Transformers (ViT) to compare performance.
 
 ## 📄 License
-This project is licensed under the MIT License. See the LICENSE file for more details.
+This project is licensed under the MIT License. See the `LICENSE` file for more details.
