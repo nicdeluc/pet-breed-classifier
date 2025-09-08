@@ -52,15 +52,20 @@ The project is built with a modern stack for machine learning engineering:
 The workflow is designed to separate experimentation from production:
 
 ```mermaid
+%%{init: {'themeVariables': { 'panControls': false, 'zoomControls': false }}}%%
 graph LR
     subgraph "1. Experimentation & Training"
-        A[W&B Sweeps] --> B(Training Script);
-        B --> C{{Final Model Artifact}};
+        A[Oxford-IIIT Pet Dataset] --> B(Training Script in PyTorch);
+        B -- Runs tracked by --> C[W&B Sweeps];
+        C -- Finds best params --> B;
+        B --> D{{Final Model Artifact (.pth)}};
     end
 
     subgraph "2. Deployment & Inference"
-        C --> D[Gradio App + Dockerfile];
-        D --> E((Live Deployment on Hugging Face));
+        D -- Tracked with --> F[Git LFS];
+        D --> E[Gradio App + Dockerfile];
+        E -- Builds --> G{Docker Image};
+        G -- Deployed to --> H((Live on Hugging Face Spaces));
     end
 ```
 
@@ -144,9 +149,9 @@ The repository is organized to clearly separate concerns:
 ## 📈 Possible Improvements
 Potential next steps could include:
 
-CI/CD Pipeline: Implement GitHub Actions to automatically build and test the Docker image on every push.
+- CI/CD Pipeline: Implement GitHub Actions to automatically build and test the Docker image on every push.
 
-Advanced Architectures: Experiment with more modern architectures like Vision Transformers (ViT) to compare performance.
+- Advanced Architectures: Experiment with more modern architectures like Vision Transformers (ViT) to compare performance.
 
 ## 📄 License
 This project is licensed under the MIT License. See the LICENSE file for more details.
