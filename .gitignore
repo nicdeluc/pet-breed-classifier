@@ -24,5 +24,8 @@ wandb/
 # Jupyter Notebooks built from Quarto/Rmd
 *.ipynb
 
+# Gradio
+.gradio/
+
 # Other
 ideas.txt
