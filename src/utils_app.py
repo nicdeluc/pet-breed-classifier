@@ -25,7 +25,7 @@ def load_model(model, num_classes, dropout_p=0.5, device="cuda"):
     return model
 
 
-def prediction_probabilities(image, model, device="cuda"):
+def prediction_probabilities(image, model, device="cpu"):
     """ """
     pred_transform = transforms.Compose(
         [
