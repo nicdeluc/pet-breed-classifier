@@ -53,7 +53,7 @@ The workflow is designed to separate experimentation from deployment:
 
 ```mermaid
 graph TD
-    subgraph "1. Experimentation & Training"
+    subgraph "1. Experiments & Training"
         A[Oxford-IIIT Pet Dataset] --> B(Training Script in PyTorch);
         B -- Runs tracked by --> C[W&B Sweeps];
         C -- Finds best params --> B;
