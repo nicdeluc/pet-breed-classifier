@@ -38,9 +38,9 @@ To maximize performance, I implemented a two-stage transfer learning strategy:
 ### Key Features
 
 * **Hyperparameter Tuning:** A Bayesian sweep was conducted using Weights & Biases to find the optimal learning rates, dropout probability, and weight decay.
-* **Interactive UI:** A simple and intuitive web interface built with Gradio allows users to upload an image and receive the top 3 breed predictions with confidence scores.
-* **Containerized & Reproducible:** The entire application is containerized with Docker, ensuring that it runs consistently in any environment.
 * **End-to-End Experiment Tracking:** All training runs, metrics, and configurations are logged in Weights & Biases for full transparency and reproducibility.
+* **Containerized & Reproducible:** The entire application is containerized with Docker, ensuring that it runs consistently in any environment.
+* **Interactive UI:** A simple and intuitive web interface built with Gradio allows users to upload an image and receive the top 3 breed predictions with confidence scores. Deployed in Hugging Face Spaces.
 
 ---
 
